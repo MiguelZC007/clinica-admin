@@ -10,9 +10,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { MainContext } from '../../contexts/MainContext';
 import axios from '../../boot/axios';
 import Swal from 'sweetalert2';
-import { AcceptanceRangeForm } from './AcceptanceRangeForm';
+import { ReagentForm } from './ReagentForm';
 
-export const AcceptanceRangeScreen = () => {
+export const ReagentScreen = () => {
 	const { setLoading } = React.useContext(MainContext);
 	const [open, setOpen] = React.useState(false);
 	const [ranges, setRanges] = React.useState([]);
@@ -25,15 +25,12 @@ export const AcceptanceRangeScreen = () => {
 		to: 0,
 		unit_measurement: '',
 		maker: '',
-		danger_from: 0,
-		danger_to: 0,
-		type: '',
-		state: false,
+		state: true,
 	});
 
 	const handleDelete = (id) => {
 		axios
-			.delete('/v1/acceptance-range' + id)
+			.delete('/v1/reagent/' + id)
 			.then((response) => {
 				handleModify(response.data);
 				Swal.fire({
@@ -62,7 +59,7 @@ export const AcceptanceRangeScreen = () => {
 	React.useEffect(() => {
 		setLoading(true);
 		axios
-			.get('/v1/acceptance-range')
+			.get('/v1/reagent')
 			.then((response) => {
 				setRanges(response.data);
 			})
@@ -102,14 +99,11 @@ export const AcceptanceRangeScreen = () => {
 								to: 0,
 								unit_measurement: '',
 								maker: '',
-								danger_from: 0,
-								danger_to: 0,
-								type: '',
-								state: false,
+								state: true,
 							});
 							setOpen(true);
 						}}>
-						Crear Rango de Aceptacion
+						Crear Reactivo
 					</Button>
 				</Grid>
 			</Grid>
@@ -173,9 +167,6 @@ export const AcceptanceRangeScreen = () => {
 														unit_measurement:
 															row.unit_measurement,
 														maker: row.maker,
-														danger_from: row.danger_from,
-														danger_to: row.danger_to,
-														type: row.type,
 														state: row.state,
 													});
 													setOpen(!open);
@@ -198,7 +189,7 @@ export const AcceptanceRangeScreen = () => {
 				</TableContainer>
 			</Paper>
 			{open && (
-				<AcceptanceRangeForm
+				<ReagentForm
 					data={range}
 					openData={open}
 					action={action}

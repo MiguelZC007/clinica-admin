@@ -1,24 +1,13 @@
 import React, { useState } from 'react';
-
-import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import { styled, useTheme } from '@mui/material/styles';
-import { Collapse, Toolbar } from '@mui/material';
-import { drawerWidth, iconColor, itemsList, itemsSetting } from './item-list';
-import { useSelector } from 'react-redux';
+import { iconColor, itemsList } from './item-list';
 import { useLocation } from 'react-router';
-
 import { useHistory } from 'react-router-dom';
 
 const DrawerHeader = styled('div')(({ theme }) => ({

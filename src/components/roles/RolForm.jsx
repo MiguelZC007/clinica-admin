@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Checkbox, FormControlLabel, Modal, Typography } from '@mui/material';
+import { Modal, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import axios from '../../boot/axios';
@@ -26,7 +26,7 @@ export const RolForm = ({ action, openData, data, handleClose, handleModify }) =
 	const [open, setOpen] = React.useState(openData);
 	const [formValues, handleInputChange] = useForm(data);
 
-	const { name, description, state } = formValues;
+	const { name } = formValues;
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -34,8 +34,6 @@ export const RolForm = ({ action, openData, data, handleClose, handleModify }) =
 			axios
 				.post('/v1/rols', {
 					name: name,
-					description: description,
-					state: state,
 				})
 				.then((response) => {
 					handleModify(response.data);
@@ -47,8 +45,6 @@ export const RolForm = ({ action, openData, data, handleClose, handleModify }) =
 			axios
 				.put('/v1/rols/' + data.id, {
 					name: name,
-					description: description,
-					state: state,
 				})
 				.then((response) => {
 					handleModify(response.data);
@@ -86,30 +82,6 @@ export const RolForm = ({ action, openData, data, handleClose, handleModify }) =
 								autoFocus
 								value={name}
 								onChange={handleInputChange}
-							/>
-
-							<TextField
-								margin='normal'
-								fullWidth
-								name='description'
-								label='description'
-								type='text'
-								id='description'
-								value={description}
-								onChange={handleInputChange}
-							/>
-
-							<FormControlLabel
-								control={
-									<Checkbox
-										name='state'
-										label='state'
-										id='state'
-										checked={state}
-										onChange={handleInputChange}
-									/>
-								}
-								label='Estado'
 							/>
 
 							<Button

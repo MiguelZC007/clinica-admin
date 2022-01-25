@@ -26,7 +26,7 @@ export const UnderlyingDiseaseScreen = () => {
 
 	const handleDelete = (id) => {
 		axios
-			.delete('/v1/underlyingDisease/' + id)
+			.delete('/v1/underlying-disease/' + id)
 			.then((response) => {
 				handleModify(response.data);
 				Swal.fire({
@@ -95,7 +95,7 @@ export const UnderlyingDiseaseScreen = () => {
 							});
 							setOpen(true);
 						}}>
-						Crear Sintoma
+						Crear Enfermedad de Base
 					</Button>
 				</Grid>
 			</Grid>

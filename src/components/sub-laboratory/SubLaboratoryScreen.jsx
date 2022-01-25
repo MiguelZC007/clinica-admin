@@ -10,23 +10,23 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { MainContext } from '../../contexts/MainContext';
 import axios from '../../boot/axios';
 import Swal from 'sweetalert2';
-import { ProductResultForm } from './ProductResultForm';
+import { SubLaboratoryForm } from './SubLaboratoryForm';
 
-export const ProductResultScreen = () => {
+export const SubLaboratoryScreen = () => {
 	const { setLoading } = React.useContext(MainContext);
 	const [open, setOpen] = React.useState(false);
-	const [productResults, setProductResults] = React.useState([]);
+	const [subLaboratorys, setSubLaboratorys] = React.useState([]);
 	const [action, setAction] = React.useState('');
-	const [productResult, setProductResult] = React.useState({
+	const [subLaboratory, setSubLaboratory] = React.useState({
 		id: '',
 		name: '',
 		product_id: '',
-		acceptance_range_id: '',
+		reagent_id: '',
 	});
 
 	const handleDelete = (id) => {
 		axios
-			.delete('/v1/productResult/' + id)
+			.delete('/v1/sub-laboratory/' + id)
 			.then((response) => {
 				handleModify(response.data);
 				Swal.fire({
@@ -55,9 +55,9 @@ export const ProductResultScreen = () => {
 	React.useEffect(() => {
 		setLoading(true);
 		axios
-			.get('/v1/product-result')
+			.get('/v1/sub-laboratory')
 			.then((response) => {
-				setProductResults(response.data);
+				setSubLaboratorys(response.data);
 			})
 			.catch((e) => {
 				setLoading(false);
@@ -68,7 +68,7 @@ export const ProductResultScreen = () => {
 	}, []);
 
 	const handleModify = (element) => {
-		var data = productResults;
+		var data = subLaboratorys;
 		let compare = data.filter((item) => item.id === element.id);
 		compare.length > 0
 			? (data = data.map((item) => {
@@ -76,7 +76,7 @@ export const ProductResultScreen = () => {
 					return item;
 			  }))
 			: data.push(element);
-		setProductResults(data);
+		setSubLaboratorys(data);
 	};
 
 	return (
@@ -87,15 +87,15 @@ export const ProductResultScreen = () => {
 						variant='contained'
 						onClick={() => {
 							setAction('CREATE');
-							setProductResult({
+							setSubLaboratory({
 								id: '',
 								name: '',
 								product_id: '',
-								acceptance_range_id: '',
+								reagent_id: '',
 							});
 							setOpen(true);
 						}}>
-						Crear Sintoma
+						Crear Sub Laboratorio
 					</Button>
 				</Grid>
 			</Grid>
@@ -104,7 +104,7 @@ export const ProductResultScreen = () => {
 					<Table size='small' stickyHeader sx={{ width: '100%' }}>
 						<TableHead>
 							<TableRow>
-								{Object.keys(productResult).map((item, index) => {
+								{Object.keys(subLaboratory).map((item, index) => {
 									return (
 										item !== 'id' && (
 											<TableCell
@@ -122,10 +122,10 @@ export const ProductResultScreen = () => {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{productResults.map((row) => (
+							{subLaboratorys.map((row) => (
 								<React.Fragment key={row.id}>
 									<TableRow>
-										{Object.keys(productResult).map((item, index) => {
+										{Object.keys(subLaboratory).map((item, index) => {
 											return (
 												item !== 'id' && (
 													<TableCell
@@ -150,12 +150,11 @@ export const ProductResultScreen = () => {
 												onClick={(e) => {
 													e.preventDefault();
 													setAction('UPDATE');
-													setProductResult({
+													setSubLaboratory({
 														id: row.id,
 														name: row.name,
 														product_id: row.product_id,
-														acceptance_range_id:
-															row.acceptance_range_id,
+														reagent_id: row.reagent_id,
 													});
 													setOpen(!open);
 												}}>
@@ -177,8 +176,8 @@ export const ProductResultScreen = () => {
 				</TableContainer>
 			</Paper>
 			{open && (
-				<ProductResultForm
-					data={productResult}
+				<SubLaboratoryForm
+					data={subLaboratory}
 					openData={open}
 					action={action}
 					handleModify={handleModify}

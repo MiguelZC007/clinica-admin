@@ -8,7 +8,7 @@ import { useForm } from '../../hooks/useForm';
 import axios from '../../boot/axios';
 import { MainContext } from '../../contexts/MainContext';
 
-export const ProductResultForm = ({
+export const SubLaboratoryForm = ({
 	action,
 	openData,
 	data,
@@ -33,7 +33,7 @@ export const ProductResultForm = ({
 	const [products, setProducts] = React.useState([]);
 	const [ranges, setRanges] = React.useState([]);
 	const [formValues, handleInputChange] = useForm(data);
-	const { name, product_id, acceptance_range_id } = formValues;
+	const { name, product_id, reagent_id } = formValues;
 
 	React.useEffect(() => {
 		setLoading(true);
@@ -51,7 +51,7 @@ export const ProductResultForm = ({
 			});
 		setLoading(true);
 		axios
-			.get('/v1/acceptance-range')
+			.get('/v1/reagent')
 			.then((response) => {
 				setRanges(response.data);
 			})
@@ -68,10 +68,10 @@ export const ProductResultForm = ({
 		event.preventDefault();
 		if (action === 'CREATE') {
 			axios
-				.post('/v1/product-result', {
+				.post('/v1/sub-laboratory', {
 					name: name,
 					product_id: product_id,
-					acceptance_range_id: acceptance_range_id,
+					reagent_id: reagent_id,
 				})
 				.then((response) => {
 					handleModify(response.data);
@@ -81,10 +81,10 @@ export const ProductResultForm = ({
 		}
 		if (action === 'UPDATE') {
 			axios
-				.put('/v1/product-result' + data.id, {
+				.put('/v1/sub-laboratory/' + data.id, {
 					name: name,
 					product_id: product_id,
-					acceptance_range_id: acceptance_range_id,
+					reagent_id: reagent_id,
 				})
 				.then((response) => {
 					handleModify(response.data);
@@ -142,11 +142,10 @@ export const ProductResultForm = ({
 
 							<Select
 								fullWidth
-								labelId='demo-simple-select-label'
-								id='acceptance_range_id'
-								name='acceptance_range_id'
-								value={acceptance_range_id}
-								label='acceptance_range'
+								id='reagent_id'
+								name='reagent_id'
+								value={reagent_id}
+								label='reagent'
 								onChange={handleInputChange}>
 								{ranges.map((range) => {
 									return (

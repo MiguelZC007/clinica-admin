@@ -26,7 +26,7 @@ export const ProductScreen = () => {
 		description: '',
 		category_id: '',
 		state: true,
-		programmable: true,
+		programmable: false,
 	});
 
 	const handleDelete = (id) => {
@@ -99,7 +99,7 @@ export const ProductScreen = () => {
 								sub_category: '',
 								description: '',
 								category_id: '',
-								state: false,
+								state: true,
 								programmable: false,
 							});
 							setOpen(true);

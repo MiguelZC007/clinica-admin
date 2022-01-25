@@ -15,13 +15,7 @@ import { useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
 import axios from '../../boot/axios';
 
-export const AcceptanceRangeForm = ({
-	action,
-	openData,
-	data,
-	handleClose,
-	handleModify,
-}) => {
+export const ReagentForm = ({ action, openData, data, handleClose, handleModify }) => {
 	const style = {
 		position: 'absolute',
 		top: '50%',
@@ -41,33 +35,19 @@ export const AcceptanceRangeForm = ({
 	const [open, setOpen] = React.useState(openData);
 	const [formValues, handleInputChange] = useForm(data);
 
-	const {
-		name,
-		description,
-		from,
-		to,
-		unit_measurement,
-		maker,
-		danger_from,
-		danger_to,
-		type,
-		state,
-	} = formValues;
+	const { name, description, from, to, unit_measurement, maker, state } = formValues;
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (action === 'CREATE') {
 			axios
-				.post('/v1/acceptance-range', {
+				.post('/v1/reagent', {
 					name: name,
 					description: description,
 					from: Number(from),
 					to: Number(to),
 					unit_measurement: unit_measurement,
 					maker: maker,
-					danger_from: Number(danger_from),
-					danger_to: Number(danger_to),
-					type: type,
 					state: state,
 				})
 				.then((response) => {
@@ -78,16 +58,13 @@ export const AcceptanceRangeForm = ({
 		}
 		if (action === 'UPDATE') {
 			axios
-				.put('/v1/acceptance-range/' + data.id, {
+				.put('/v1/reagent/' + data.id, {
 					name: name,
 					description: description,
 					from: Number(from),
 					to: Number(to),
 					unit_measurement: unit_measurement,
 					maker: maker,
-					danger_from: Number(danger_from),
-					danger_to: Number(danger_to),
-					type: type,
 					state: state,
 				})
 				.then((response) => {
@@ -108,7 +85,7 @@ export const AcceptanceRangeForm = ({
 				<Box sx={{ ...style, width: 400 }}>
 					<Grid container component='main'>
 						<Typography component='h1' variant='h5'>
-							Rango de Aceptacion
+							Reactivo
 						</Typography>
 						<Box
 							component='form'
@@ -183,42 +160,6 @@ export const AcceptanceRangeForm = ({
 								onChange={handleInputChange}
 							/>
 
-							<TextField
-								margin='normal'
-								fullWidth
-								name='danger_from'
-								label='danger_from'
-								type='number'
-								id='danger_from'
-								value={danger_from}
-								onChange={handleInputChange}
-							/>
-
-							<TextField
-								margin='normal'
-								fullWidth
-								name='danger_to'
-								label='danger_to'
-								type='number'
-								id='danger_to'
-								value={danger_to}
-								onChange={handleInputChange}
-							/>
-
-							<Select
-								fullWidth
-								id='type'
-								name='type'
-								value={type}
-								label='type'
-								onChange={handleInputChange}>
-								<MenuItem key={1} value={'REACTIVO'}>
-									Reactivo
-								</MenuItem>
-								<MenuItem key={2} value={'CONTEO'}>
-									Conteo
-								</MenuItem>
-							</Select>
 							<FormControlLabel
 								control={
 									<Checkbox

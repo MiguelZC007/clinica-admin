@@ -38,7 +38,7 @@ export const UnderlyingDiseaseForm = ({
 		event.preventDefault();
 		if (action === 'CREATE') {
 			axios
-				.post('/v1/symptom', {
+				.post('/v1/underlying-disease', {
 					name: name,
 					description: description,
 					state: state,
@@ -51,7 +51,7 @@ export const UnderlyingDiseaseForm = ({
 		}
 		if (action === 'UPDATE') {
 			axios
-				.put('/v1/symptom/' + data.id, {
+				.put('/v1/underlying-disease/' + data.id, {
 					name: name,
 					description: description,
 					state: state,

@@ -8,8 +8,8 @@ import { SpecialtiesScreen } from '../components/specialties/SpecialtiesScreen';
 import { RolScreen } from '../components/roles/RolScreen';
 import { SymptomScreen } from '../components/symptoms/SymptomScreen';
 import { UnderlyingDiseaseScreen } from '../components/underlying-disease/UnderlyingDiseaseScreen';
-import { AcceptanceRangeScreen } from '../components/acceptance-range/AcceptanceRangeScreen';
-import { ProductResultScreen } from '../components/product-result/ProductResultScreen';
+import { ReagentScreen } from '../components/reagent/ReagentScreen';
+import { SubLaboratoryScreen } from '../components/sub-laboratory/SubLaboratoryScreen';
 
 export const DashboardRoutes = () => {
 	return (
@@ -23,8 +23,8 @@ export const DashboardRoutes = () => {
 				<Route path='/roles' component={RolScreen} />
 				<Route path='/symptoms' component={SymptomScreen} />
 				<Route path='/underlying-disease' component={UnderlyingDiseaseScreen} />
-				<Route path='/acceptance-range' component={AcceptanceRangeScreen} />
-				<Route path='/product-result' component={ProductResultScreen} />
+				<Route path='/reagent' component={ReagentScreen} />
+				<Route path='/sub-laboratory' component={SubLaboratoryScreen} />
 			</Switch>
 		</div>
 	);
