@@ -35,19 +35,21 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 	const [open, setOpen] = React.useState(openData);
 	const [formValues, handleInputChange] = useForm(data);
 
-	const { name, description, from, to, unit_measurement, maker, state } = formValues;
+	const { name, description, from, to, unit_measurement, maker, state, type } =
+		formValues;
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (action === 'CREATE') {
 			axios
-				.post('/v1/reagent', {
+				.post('/v1/reference-value', {
 					name: name,
 					description: description,
 					from: Number(from),
 					to: Number(to),
 					unit_measurement: unit_measurement,
 					maker: maker,
+					type: type,
 					state: state,
 				})
 				.then((response) => {
@@ -58,13 +60,14 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 		}
 		if (action === 'UPDATE') {
 			axios
-				.put('/v1/reagent/' + data.id, {
+				.put('/v1/reference-value/' + data.id, {
 					name: name,
 					description: description,
 					from: Number(from),
 					to: Number(to),
 					unit_measurement: unit_measurement,
 					maker: maker,
+					type: type,
 					state: state,
 				})
 				.then((response) => {
@@ -159,6 +162,19 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 								value={maker}
 								onChange={handleInputChange}
 							/>
+
+							<Select
+								fullWidth
+								labelId='demo-simple-select-label'
+								id='type'
+								name='type'
+								value={type}
+								label='Tipo'
+								onChange={handleInputChange}>
+								<MenuItem value={'REACTIVO'}>{'Reactivo'}</MenuItem>
+								<MenuItem value={'CONTEO'}>{'Conteo'}</MenuItem>
+								<MenuItem value={'OTRO'}>{'Otro'}</MenuItem>
+							</Select>
 
 							<FormControlLabel
 								control={

@@ -25,12 +25,13 @@ export const ReagentScreen = () => {
 		to: 0,
 		unit_measurement: '',
 		maker: '',
+		type: '',
 		state: true,
 	});
 
 	const handleDelete = (id) => {
 		axios
-			.delete('/v1/reagent/' + id)
+			.delete('/v1/reference-value/' + id)
 			.then((response) => {
 				handleModify(response.data);
 				Swal.fire({
@@ -59,7 +60,7 @@ export const ReagentScreen = () => {
 	React.useEffect(() => {
 		setLoading(true);
 		axios
-			.get('/v1/reagent')
+			.get('/v1/reference-value')
 			.then((response) => {
 				setRanges(response.data);
 			})
@@ -99,6 +100,7 @@ export const ReagentScreen = () => {
 								to: 0,
 								unit_measurement: '',
 								maker: '',
+								type: '',
 								state: true,
 							});
 							setOpen(true);
@@ -167,6 +169,7 @@ export const ReagentScreen = () => {
 														unit_measurement:
 															row.unit_measurement,
 														maker: row.maker,
+														type: row.type,
 														state: row.state,
 													});
 													setOpen(!open);

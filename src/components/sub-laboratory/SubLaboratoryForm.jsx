@@ -51,7 +51,7 @@ export const SubLaboratoryForm = ({
 			});
 		setLoading(true);
 		axios
-			.get('/v1/reagent')
+			.get('/v1/reference-value')
 			.then((response) => {
 				setRanges(response.data);
 			})

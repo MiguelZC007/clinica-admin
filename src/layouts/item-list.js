@@ -1,8 +1,6 @@
 import {
 	Inventory2,
 	PeopleAlt,
-	AccessTime,
-	Person,
 	Assessment,
 	Category,
 	Biotech,
@@ -32,11 +30,6 @@ export const itemsList = [
 		icon: <Inventory2 color={iconColor} />,
 	},
 	{
-		name: 'Sub Laboratorios',
-		path: '/sub-laboratory',
-		icon: <Biotech color={iconColor} />,
-	},
-	{
 		name: 'Especialidades',
 		path: '/specialties',
 		icon: <EMobiledata color={iconColor} />,
@@ -57,9 +50,14 @@ export const itemsList = [
 		icon: <AirlineSeatIndividualSuite color={iconColor} />,
 	},
 	{
-		name: 'Reactivos',
+		name: 'Valores de Referencia',
 		path: '/reagent',
 		icon: <Science color={iconColor} />,
+	},
+	{
+		name: 'Sub Laboratorios',
+		path: '/sub-laboratory',
+		icon: <Biotech color={iconColor} />,
 	},
 
 	{
