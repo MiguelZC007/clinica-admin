@@ -164,7 +164,6 @@ export const CreateProductForm = ({
 
 							<Select
 								fullWidth
-								labelId='demo-simple-select-label'
 								id='category_id'
 								name='category_id'
 								value={category_id}

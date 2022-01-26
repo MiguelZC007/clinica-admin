@@ -45,8 +45,8 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 				.post('/v1/reference-value', {
 					name: name,
 					description: description,
-					from: Number(from),
-					to: Number(to),
+					from: from,
+					to: to,
 					unit_measurement: unit_measurement,
 					maker: maker,
 					type: type,
@@ -63,8 +63,8 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 				.put('/v1/reference-value/' + data.id, {
 					name: name,
 					description: description,
-					from: Number(from),
-					to: Number(to),
+					from: from,
+					to: to,
 					unit_measurement: unit_measurement,
 					maker: maker,
 					type: type,
@@ -124,7 +124,7 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 								fullWidth
 								name='from'
 								label='from'
-								type='number'
+								type='text'
 								id='from'
 								value={from}
 								onChange={handleInputChange}
@@ -135,7 +135,7 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 								fullWidth
 								name='to'
 								label='to'
-								type='number'
+								type='text'
 								id='to'
 								value={to}
 								onChange={handleInputChange}
@@ -165,7 +165,6 @@ export const ReagentForm = ({ action, openData, data, handleClose, handleModify 
 
 							<Select
 								fullWidth
-								labelId='demo-simple-select-label'
 								id='type'
 								name='type'
 								value={type}
