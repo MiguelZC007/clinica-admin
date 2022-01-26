@@ -21,7 +21,7 @@ export const SubLaboratoryScreen = () => {
 		id: '',
 		name: '',
 		product_id: '',
-		reagent_id: '',
+		reference_value_id: '',
 	});
 
 	const handleDelete = (id) => {
@@ -91,7 +91,7 @@ export const SubLaboratoryScreen = () => {
 								id: '',
 								name: '',
 								product_id: '',
-								reagent_id: '',
+								reference_value_id: '',
 							});
 							setOpen(true);
 						}}>
@@ -154,7 +154,8 @@ export const SubLaboratoryScreen = () => {
 														id: row.id,
 														name: row.name,
 														product_id: row.product_id,
-														reagent_id: row.reagent_id,
+														reference_value_id:
+															row.reference_value_id,
 													});
 													setOpen(!open);
 												}}>

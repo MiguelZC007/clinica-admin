@@ -33,7 +33,7 @@ export const SubLaboratoryForm = ({
 	const [products, setProducts] = React.useState([]);
 	const [ranges, setRanges] = React.useState([]);
 	const [formValues, handleInputChange] = useForm(data);
-	const { name, product_id, reagent_id } = formValues;
+	const { name, product_id, reference_value_id } = formValues;
 
 	React.useEffect(() => {
 		setLoading(true);
@@ -71,7 +71,7 @@ export const SubLaboratoryForm = ({
 				.post('/v1/sub-laboratory', {
 					name: name,
 					product_id: product_id,
-					reagent_id: reagent_id,
+					reference_value_id: reference_value_id,
 				})
 				.then((response) => {
 					handleModify(response.data);
@@ -84,7 +84,7 @@ export const SubLaboratoryForm = ({
 				.put('/v1/sub-laboratory/' + data.id, {
 					name: name,
 					product_id: product_id,
-					reagent_id: reagent_id,
+					reference_value_id: reference_value_id,
 				})
 				.then((response) => {
 					handleModify(response.data);
@@ -142,9 +142,9 @@ export const SubLaboratoryForm = ({
 
 							<Select
 								fullWidth
-								id='reagent_id'
-								name='reagent_id'
-								value={reagent_id}
+								id='reference_value_id'
+								name='reference_value_id'
+								value={reference_value_id}
 								label='reagent'
 								onChange={handleInputChange}>
 								{ranges.map((range) => {
