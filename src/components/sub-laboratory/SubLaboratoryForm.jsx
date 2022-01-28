@@ -38,7 +38,7 @@ export const SubLaboratoryForm = ({
 	React.useEffect(() => {
 		setLoading(true);
 		axios
-			.get('/v1/products/laboratorios')
+			.get('/v1/products/laboratories')
 			.then((response) => {
 				setProducts(response.data);
 			})
