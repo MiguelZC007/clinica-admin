@@ -17,23 +17,27 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { MainContext } from "../../contexts/MainContext";
 import axios from "../../boot/axios";
 import Swal from "sweetalert2";
-import { SubLaboratoryForm } from "./SubLaboratoryForm";
+import { ReferenceValueForm } from "./ReferenceValueForm";
 
-export const SubLaboratoryScreen = () => {
+export const ReferenceValueScreen = () => {
   const { setLoading } = React.useContext(MainContext);
   const [open, setOpen] = React.useState(false);
-  const [subLaboratorys, setSubLaboratorys] = React.useState([]);
+  const [ranges, setRanges] = React.useState([]);
   const [action, setAction] = React.useState("");
-  const [subLaboratory, setSubLaboratory] = React.useState({
+  const [range, setRange] = React.useState({
     id: "",
     name: "",
-    product_id: "",
-    reference_value_id: "",
+    description: "",
+    value_reference: "",
+    unit_measurement: "",
+    maker: "",
+    type: "",
+    state: true,
   });
 
   const handleDelete = (id) => {
     axios
-      .delete("/v1/sub-laboratory/" + id)
+      .delete("/v1/reference-value/" + id)
       .then((response) => {
         handleModify(response.data);
         Swal.fire({
@@ -62,9 +66,9 @@ export const SubLaboratoryScreen = () => {
   React.useEffect(() => {
     setLoading(true);
     axios
-      .get("/v1/sub-laboratory")
+      .get("/v1/reference-value")
       .then((response) => {
-        setSubLaboratorys(response.data);
+        setRanges(response.data);
       })
       .catch((e) => {
         setLoading(false);
@@ -75,7 +79,7 @@ export const SubLaboratoryScreen = () => {
   }, []);
 
   const handleModify = (element) => {
-    var data = subLaboratorys;
+    var data = ranges;
     let compare = data.filter((item) => item.id === element.id);
     compare.length > 0
       ? (data = data.map((item) => {
@@ -85,7 +89,7 @@ export const SubLaboratoryScreen = () => {
           return item;
         }))
       : data.push(element);
-    setSubLaboratorys(data);
+    setRanges(data);
   };
 
   return (
@@ -96,16 +100,20 @@ export const SubLaboratoryScreen = () => {
             variant="contained"
             onClick={() => {
               setAction("CREATE");
-              setSubLaboratory({
+              setRange({
                 id: "",
                 name: "",
-                product_id: "",
-                reference_value_id: "",
+                description: "",
+                value_reference: "",
+                unit_measurement: "",
+                maker: "",
+                type: "",
+                state: true,
               });
               setOpen(true);
             }}
           >
-            Crear Sub Laboratorio
+            Crear Reactivo
           </Button>
         </Grid>
       </Grid>
@@ -114,7 +122,7 @@ export const SubLaboratoryScreen = () => {
           <Table size="small" stickyHeader sx={{ width: "100%" }}>
             <TableHead>
               <TableRow>
-                {Object.keys(subLaboratory).map((item, index) => {
+                {Object.keys(range).map((item, index) => {
                   return (
                     item !== "id" && (
                       <TableCell
@@ -133,10 +141,10 @@ export const SubLaboratoryScreen = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {subLaboratorys.map((row) => (
+              {ranges.map((row) => (
                 <React.Fragment key={row.id}>
                   <TableRow>
-                    {Object.keys(subLaboratory).map((item, index) => {
+                    {Object.keys(range).map((item, index) => {
                       return (
                         item !== "id" && (
                           <TableCell
@@ -162,11 +170,15 @@ export const SubLaboratoryScreen = () => {
                         onClick={(e) => {
                           e.preventDefault();
                           setAction("UPDATE");
-                          setSubLaboratory({
+                          setRange({
                             id: row.id,
                             name: row.name,
-                            product_id: row.product_id,
-                            reference_value_id: row.reference_value_id,
+                            description: row.description,
+                            value_reference: row.value_reference,
+                            unit_measurement: row.unit_measurement,
+                            maker: row.maker,
+                            type: row.type,
+                            state: row.state,
                           });
                           setOpen(!open);
                         }}
@@ -190,8 +202,8 @@ export const SubLaboratoryScreen = () => {
         </TableContainer>
       </Paper>
       {open && (
-        <SubLaboratoryForm
-          data={subLaboratory}
+        <ReferenceValueForm
+          data={range}
           openData={open}
           action={action}
           handleModify={handleModify}
