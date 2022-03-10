@@ -24,16 +24,18 @@ export const SubLaboratoryScreen = () => {
   const [open, setOpen] = React.useState(false);
   const [subLaboratorys, setSubLaboratorys] = React.useState([]);
   const [action, setAction] = React.useState("");
+  const [image, setImage] = React.useState("");
   const [subLaboratory, setSubLaboratory] = React.useState({
     id: "",
     name: "",
     product_id: "",
+    category_id: "",
     reference_value_id: "",
   });
 
   const handleDelete = (id) => {
     axios
-      .delete("/v1/sub-laboratory/" + id)
+      .delete("/v1/analysis/" + id)
       .then((response) => {
         handleModify(response.data);
         Swal.fire({
@@ -62,7 +64,7 @@ export const SubLaboratoryScreen = () => {
   React.useEffect(() => {
     setLoading(true);
     axios
-      .get("/v1/sub-laboratory")
+      .get("/v1/analysis")
       .then((response) => {
         setSubLaboratorys(response.data);
       })
@@ -109,6 +111,7 @@ export const SubLaboratoryScreen = () => {
           </Button>
         </Grid>
       </Grid>
+
       <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
         <TableContainer sx={{ maxHeight: "70vh" }}>
           <Table size="small" stickyHeader sx={{ width: "100%" }}>
@@ -166,6 +169,7 @@ export const SubLaboratoryScreen = () => {
                             id: row.id,
                             name: row.name,
                             product_id: row.product_id,
+                            category_id: row.category_id,
                             reference_value_id: row.reference_value_id,
                           });
                           setOpen(!open);

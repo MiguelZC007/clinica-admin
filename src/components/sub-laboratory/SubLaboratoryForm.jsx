@@ -49,6 +49,7 @@ export const SubLaboratoryForm = ({
       .finally(() => {
         setLoading(false);
       });
+
     setLoading(true);
     axios
       .get("/v1/reference-value")
@@ -68,7 +69,7 @@ export const SubLaboratoryForm = ({
     event.preventDefault();
     if (action === "CREATE") {
       axios
-        .post("/v1/sub-laboratory", {
+        .post("/v1/analysis", {
           name: name,
           product_id: product_id,
           reference_value_id: reference_value_id,
@@ -81,7 +82,7 @@ export const SubLaboratoryForm = ({
     }
     if (action === "UPDATE") {
       axios
-        .put("/v1/sub-laboratory/" + data.id, {
+        .put("/v1/analysis/" + data.id, {
           name: name,
           product_id: product_id,
           reference_value_id: reference_value_id,

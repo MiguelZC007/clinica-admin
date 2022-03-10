@@ -4,13 +4,21 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Button, IconButton, TableContainer, Grid, Paper } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  TableContainer,
+  Grid,
+  Paper,
+  Checkbox,
+} from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { MainContext } from "../../contexts/MainContext";
 import axios from "../../boot/axios";
 import Swal from "sweetalert2";
+import { EmployeeForm } from "./EmployeeForm";
 
 export const UserScreen = () => {
   const { setLoading } = React.useContext(MainContext);
@@ -22,11 +30,10 @@ export const UserScreen = () => {
     name: "",
     lastname: "",
     email: "",
-    ci: "",
     cellphone: "",
-    birthdate: "",
-    address1: "",
-    rol: "",
+    ci: "",
+    rol_id: "",
+    active: true,
   });
 
   const handleDelete = (id) => {
@@ -62,6 +69,7 @@ export const UserScreen = () => {
     axios
       .get("/v1/user-rols/employees")
       .then((response) => {
+        console.log(response.data);
         setUsers(response.data);
       })
       .catch((e) => {
@@ -72,7 +80,19 @@ export const UserScreen = () => {
       });
   }, []);
 
-  const handleModify = (data) => {};
+  const handleModify = (element) => {
+    var data = users;
+    let compare = data.filter((item) => item.id === element.id);
+    compare.length > 0
+      ? (data = data.map((item) => {
+          if (item.id === element.id) {
+            item = element;
+          }
+          return item;
+        }))
+      : data.push(element);
+    setUsers(data);
+  };
 
   return (
     <React.Fragment>
@@ -86,12 +106,11 @@ export const UserScreen = () => {
                 id: "",
                 name: "",
                 lastname: "",
+                cellphone: "",
                 email: "",
                 ci: "",
-                cellphone: "",
-                birthdate: "",
-                address1: "",
-                rol: "",
+                rol_id: "",
+                active: true,
               });
               setOpen(true);
             }}
@@ -107,11 +126,9 @@ export const UserScreen = () => {
               <TableRow>
                 {Object.keys(user).map((item) => {
                   return (
-                    item !== "id" && (
-                      <TableCell sx={{ width: "20%" }} align="center">
-                        {item}
-                      </TableCell>
-                    )
+                    <TableCell sx={{ width: "20%" }} align="center">
+                      {item}
+                    </TableCell>
                   );
                 })}
                 <TableCell sx={{ width: "20%" }} align="center">
@@ -120,7 +137,7 @@ export const UserScreen = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((row) => (
+              {/* {users.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.lastname}</TableCell>
@@ -141,10 +158,10 @@ export const UserScreen = () => {
                           lastname: row.lastname,
                           email: row.email,
                           ci: row.ci,
-                          cellphone: row.cellphone,
-                          birthdate: row.birthdate,
-                          address1: row.address1,
-                          rol: row.rol,
+                          rol_id: row.rol_id,
+                          password: row.password,
+                          confirm_password: row.confirm_password,
+                          active: row.active,
                         });
                         setOpen(!open);
                       }}
@@ -161,19 +178,75 @@ export const UserScreen = () => {
                     </IconButton>
                   </TableCell>
                 </TableRow>
+              ))} */}
+
+              {users.map((row) => (
+                <React.Fragment key={row.id}>
+                  <TableRow>
+                    {Object.keys(user).map((item, index) => {
+                      return (
+                        <TableCell
+                          key={index}
+                          sx={{ width: "20%" }}
+                          align="center"
+                        >
+                          {item !== "active" ? (
+                            row[item]
+                          ) : (
+                            <Checkbox
+                              size="small"
+                              readOnly
+                              checked={row[item]}
+                            />
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                    <TableCell align="center">
+                      <IconButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setAction("UPDATE");
+                          setUser({
+                            id: row.id,
+                            name: row.name,
+                            lastname: row.lastname,
+                            cellphone: row.cellphone,
+                            email: row.email,
+                            ci: row.ci,
+                            rol_id: row.rol_id,
+                            active: row.active,
+                          });
+                          setOpen(!open);
+                        }}
+                      >
+                        <ModeEditIcon sx={{ color: "orange" }} />
+                      </IconButton>
+                      <IconButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDelete(row.id);
+                        }}
+                      >
+                        <DeleteIcon sx={{ color: "red" }} />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                </React.Fragment>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
-      {/* {open && (
-				<CreateProductForm
-					product={product}
-					openData={open}
-					action={action}
-					handleModify={handleModify}
-					handleClose={() => setOpen(false)}></CreateProductForm>
-			)} */}
+      {open && (
+        <EmployeeForm
+          data={user}
+          openData={open}
+          action={action}
+          handleModify={handleModify}
+          handleClose={() => setOpen(false)}
+        ></EmployeeForm>
+      )}
     </React.Fragment>
   );
 };
