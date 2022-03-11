@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { HomeScreen } from "../components/Home/HomeScreen";
 import { ProductScreen } from "../components/products/ProductScreen";
 import { CategoryScreen } from "../components/categories/CategoryScreen";
-import { UserScreen } from "../components/users/UserScreen";
+import { EmployeeScreen } from "../components/users/EmployeeScreen";
 import { SpecialtiesScreen } from "../components/specialties/SpecialtiesScreen";
 import { RolScreen } from "../components/roles/RolScreen";
 import { SymptomScreen } from "../components/symptoms/SymptomScreen";
@@ -17,7 +17,7 @@ export const DashboardRoutes = () => {
       <Switch>
         <Route path="/home" component={HomeScreen} />
         <Route path="/products" component={ProductScreen} />
-        <Route path="/users" component={UserScreen} />
+        <Route path="/users" component={EmployeeScreen} />
         <Route path="/categories" component={CategoryScreen} />
         <Route path="/specialties" component={SpecialtiesScreen} />
         <Route path="/roles" component={RolScreen} />
