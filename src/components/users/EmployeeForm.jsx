@@ -45,14 +45,27 @@ export const EmployeeForm = ({
     id,
     name,
     lastname,
-    email,
+    mother_lastname,
+    birthdate,
     cellphone,
     ci,
-    active,
-    rol_id,
-    rol,
+    gender,
+    address1,
+    zone,
+    state,
+    city,
+    country,
+    email,
     password,
-    confirm_password,
+    blood_type,
+    contact_name,
+    contact_phone,
+    relationship,
+    underlying_disease,
+    registration_age,
+    observations,
+    about_us,
+    active,
   } = formValues;
 
   React.useEffect(() => {
@@ -75,16 +88,30 @@ export const EmployeeForm = ({
     event.preventDefault();
     if (action === "CREATE") {
       axios
-        .post("/v1/auth/register/employee", {
+        .post("/v1/users", {
           name: name,
           lastname: lastname,
-          email: email,
+          mother_lastname: mother_lastname,
+          birthdate: birthdate,
           cellphone: cellphone,
           ci: ci,
-          active: active,
-          rol_id: rol_id,
+          gender: gender,
+          address1: address1,
+          zone: zone,
+          state: state,
+          city: city,
           password: password,
-          confirm_password: confirm_password,
+          country: country,
+          email: email,
+          blood_type: blood_type,
+          contact_name: contact_name,
+          contact_phone: contact_phone,
+          relationship: relationship,
+          underlying_disease: underlying_disease,
+          registration_age: registration_age,
+          observations: observations,
+          about_us: about_us,
+          active: active,
         })
         .then((response) => {
           handleModify(response.data.user);
@@ -94,16 +121,30 @@ export const EmployeeForm = ({
     }
     if (action === "UPDATE") {
       axios
-        .put("/v1/user-rols/user/" + id, {
+        .put("/v1/users/" + id, {
           name: name,
           lastname: lastname,
-          email: email,
+          mother_lastname: mother_lastname,
+          birthdate: birthdate,
           cellphone: cellphone,
           ci: ci,
-          active: active,
-          rol_id: rol_id,
+          gender: gender,
+          address1: address1,
+          zone: zone,
+          state: state,
+          city: city,
+          country: country,
+          email: email,
+          blood_type: blood_type,
+          contact_name: contact_name,
           password: password,
-          confirm_password: confirm_password,
+          contact_phone: contact_phone,
+          relationship: relationship,
+          underlying_disease: underlying_disease,
+          registration_age: registration_age,
+          observations: observations,
+          about_us: about_us,
+          active: active,
         })
         .then((response) => {
           handleModify(response.data.user);
@@ -208,36 +249,6 @@ export const EmployeeForm = ({
                 value={password}
                 onChange={handleInputChange}
               />
-
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="confirm_password"
-                label="confirm_password"
-                name="confirm_password"
-                autoComplete="confirm_password"
-                autoFocus
-                value={confirm_password}
-                onChange={handleInputChange}
-              />
-
-              <Select
-                fullWidth
-                id="rol_id"
-                name="rol_id"
-                value={rol_id}
-                label="Rol"
-                onChange={handleInputChange}
-              >
-                {rols.map((rol) => {
-                  return (
-                    <MenuItem key={rol.id} value={rol.id}>
-                      {rol.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
 
               <FormControlLabel
                 control={

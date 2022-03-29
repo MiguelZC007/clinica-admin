@@ -17,10 +17,12 @@ export const DrawerComponent = ({ dispatch, open, handleDrawerClose }) => {
 
   const goToPage = (e, path) => {
     e.preventDefault();
-    if (path === "/login") {
+    if (path === "/auth/login") {
+      localStorage.clear();
       history.replace(path);
+      window.location.reload();
     }
-    history.push(path);
+    history.replace(path);
   };
 
   return (
@@ -49,7 +51,7 @@ export const DrawerComponent = ({ dispatch, open, handleDrawerClose }) => {
         <ListItem
           button
           onClick={(e) => {
-            localStorage.clear();
+          
             goToPage(e, "/auth/login");
           }}
         >

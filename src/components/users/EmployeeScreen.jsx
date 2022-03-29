@@ -41,7 +41,6 @@ export const EmployeeScreen = () => {
     city: "",
     country: "",
     email: "",
-    assword: "",
     blood_type: "",
     contact_name: "",
     contact_phone: "",
@@ -120,8 +119,12 @@ export const EmployeeScreen = () => {
         let data = [];
         if (response.data.length > 0) {
           response.data.map((item) => {
-            item.createdAt = formatDate(item.createdAt);
-            item.updatedAt = formatDate(item.updatedAt);
+            item.createdAt = moment(item.createdAt).format(
+              "DD-MM-YYYY HH:mm:ss"
+            );
+            item.updatedAt = moment(item.updatedAt).format(
+              "DD-MM-YYYY HH:mm:ss"
+            );
             item.birthdate = formatDate(item.birthdate);
             data.push(item);
           });
@@ -157,7 +160,7 @@ export const EmployeeScreen = () => {
       var m = new Date(isoDate).getMonth();
       var y = new Date(isoDate).getFullYear();
       m++;
-      console.log(d, m, y);
+
       if (d < 10) {
         d = `0${d}`;
       }
@@ -165,7 +168,6 @@ export const EmployeeScreen = () => {
         m = `0${m}`;
       }
 
-      console.log("result", `${d}-${m}-${y}`);
       return `${d}-${m}-${y}`;
     } else {
       return "";
